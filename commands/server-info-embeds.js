@@ -2,7 +2,6 @@ const Discord = require("discord.js")
 module.exports = {
    name: 'server-info-channel-creationn',
    desciption: 'hello command',
-   aliases: ['ss', 'hola'],
    guildOnly: true,
    //validChannels: '【❓】server-info',
    //validChannels: '【🏛】mc-server-info',

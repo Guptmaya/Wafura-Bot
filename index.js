@@ -28,7 +28,7 @@ bot.on("ready", async () => {
       if (reaction.partial) await reaction.fetch();
       if (user.bot) return;
       if (!reaction.message.guild) return;
-      if (reaction.message.id === '845794306962751548') {
+      if (reaction.message.id === '845805490960465930') {
          if (reaction.emoji.id === '845777557654601758') {
             await reaction.message.guild.members.cache.get(user.id).roles.add('834825205959360533')
             user.send('You have obtained \`56TA\` role!')
@@ -96,7 +96,7 @@ bot.on("ready", async () => {
       if (reaction.partial) await reaction.fetch();
       if (user.bot) return;
       if (!reaction.message.guild) return;
-      if (reaction.message.id === '845794306962751548') {
+      if (reaction.message.id === '845805490960465930') {
          if (reaction.emoji.id === '845777557654601758') {
             await reaction.message.guild.members.cache.get(user.id).roles.remove('834825205959360533')
             user.send(' \`56TA\`  role has been removed!')
@@ -178,8 +178,8 @@ bot.on("message", message => {
    if (!message.content.startsWith(prefix1) && !message.content.startsWith(prefix2)) return;
 
    //for me only
-   if (message.author.id != "541467870819778562") return;
-   if (!message.member.hasPermission("ADMINISTRATOR")) return;
+   //if (message.author.id != "541467870819778562") return;
+   //if (!message.member.hasPermission("ADMINISTRATOR")) return;
 
    const args = message.content.slice(prefix1.length).trim().split(/ +/);
    const commandName = args.shift().toLowerCase();
@@ -191,9 +191,9 @@ bot.on("message", message => {
    //check the channel
 
    bot.validChannels = new Discord.Collection();
-   if (message.channel.id !== '845763197276389386' || message.channel.id !== '845763197276389386') {
+   if (message.channel.id !== '845763197276389386' || message.channel.id !== '839174330931478568') {
       if (command.validChannels && (message.channel.name !== command.validChannels)) {
-         let botChannel = message.guild.channels.cache.find(x => x.name === "testing-bot");
+         let botChannel = message.guild.channels.cache.find(x => x.name === "bots");
          let incorrectChannelEmbed = new Discord.MessageEmbed()
             .setColor("#fefeff")
             .setDescription(`🕵️ Incorrect Channel.\n Head over to ${botChannel}`)
