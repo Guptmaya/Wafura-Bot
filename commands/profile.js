@@ -50,13 +50,13 @@ module.exports = {
             .setThumbnail(userIcon)
             .setDescription(`<@${userId}>\n\n` +
                `\*\*Denver Coins :\*\*  ${totall}\n\n` +
-               `\*\*Trivia :\*\*  ${UserTriviaProfile.triviaFailed}/${UserTriviaProfile.triviaPassed}\\n` +
+               `\*\*Trivia :\*\*  ${UserTriviaProfile.triviaFailed}/${UserTriviaProfile.triviaPassed}\n` +
                `\*\*Hacks :\*\*  ${UserProfile.failedHackCount}/${UserProfile.successfulHackCount}\n` +
                `\*\*Drive :\*\*  ${UserProfile.failedDriveCount}/${UserProfile.successfulDriveCount}\n` +
                `\*\*Gun :\*\*  ${UserProfile.failedGunCount}/${UserProfile.successfulGunCount}\n` +
                `\*\*Heists :\*\*  ${UserProfile.failedHeistsCount }/${UserProfile.successfulHeistsCount}\n`
                )
-               .setFooter('Failed/Success')
+               .setFooter('Fail/Success')
          await message.channel.send(profileEmbed);
       }
       else {
