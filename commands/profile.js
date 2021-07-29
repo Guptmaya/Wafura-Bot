@@ -26,7 +26,6 @@ module.exports = {
          const { total: totall } = await client.getUserBalance(message.guild.id, userId);
 
          let UserProfile = await UserWorkCount.findOne({ userID: userId, guildID: message.guild.id });
-         let UserTriviaProfile = await TriviaCount.findOne({ userID: userId, guildID: message.guild.id });
          if (!UserProfile) {
             UserProfile = await new UserWorkCount({
                _id: mongoose.Types.ObjectId(),
@@ -45,6 +44,17 @@ module.exports = {
             await UserProfile.save().catch(err => console.log(err));
          }
 
+         let UserTriviaProfile = await TriviaCount.findOne({ userID: userId, guildID: message.guild.id });
+         if (!UserTriviaProfile) {
+            UserTriviaProfile = await new TriviaCount({
+               _id:mongoose.Schema.Types.ObjectId,
+               userID:String,
+               guildID:String,
+               triviaFailed:0,
+               triviaPassed:0
+            });
+            await UserTriviaProfile.save().catch(err => console.log(err));
+         }
          let profileEmbed = new Discord.MessageEmbed()
             .setColor("#FF0000")
             .setThumbnail(userIcon)
