@@ -10,6 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.5.3"
+    "cron": "^1.8.2",
+    "discord-xp": "^1.1.16",
+    "discord.js": "^12.5.3",
+    "got": "^11.8.2",
+    "mongoose": "^5.13.3",
+    "unb-api": "^1.2.3"
   }
 }

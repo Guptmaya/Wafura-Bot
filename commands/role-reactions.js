@@ -11,50 +11,55 @@ module.exports = {
     
 
 
-      
-        let questionEmbed = new Discord.MessageEmbed()
-          .setTitle("Alliance Role")
+    if(args[0]=="1"){
+      //let messageRetrived = await message.channel.messages.fetch("788441228550340618");
+      /*setTimeout(function () {
+        let channelsEmbed = new Discord.MessageEmbed()
           .setColor("#FF0000")
-          .setDescription(`Get your alliance role.\n\n \*\*React to give yourself a role.\*\*\n\n` +
-            "<:56TA:845777557654601758> 56TA\n" +
-            "<:IF:845777557184839711> IF\n" +
-            "<:RZN:845777557232156734> ~RZN\n" +
-            "<:One:845777557449211934> #One\n" +
-            "<:56CX:845777557444886548> 56CX\n" + 
-            "<:56IA:845777557487222834> 56IA\n" +
-            "<:xRZN:845777557827485716> xRZN\n" +
-            "<:56Im:845777557709258782> 56Im\n" +
-            "<:OneB:845777557231501383> OneB\n" +
-            "<:56ML:845777557579366472> 56ML\n" +
-            "<:56Iaa:845777557361655851> 56Ia\n" +
-            "<:OneC:845777557562458162> OneC\n" +
-            "<:56Vn:845777557717516288> 56Vn\n" +
-            "<:56MA:845777557592211497> 56MA\n" +
-            "<:56CC:845777557826961468> 56CC\n" +
-            "<:OO:845777558032744488> Others\n"
-            )
+          .attachFiles([`./images/parts.png`])
+          .setImage(`attachment://parts.png`)
+        message.channel.send(channelsEmbed);
+      }, 1000)*/
+  
+      setTimeout(function () {
+        let questionEmbed = new Discord.MessageEmbed()
+          .setTitle("Spoiler/Non-Spoilers Role")
+          .setColor("#FF0000")
+          .setDescription(`These roles will open <#688185706870341651>,<#632271811937173510>.\n\n \*\*React to give yourself a role.\*\*\n\n` +
+            "<:MH_Part1:632282435614277643>. No-Spoilers\n\n" +
+            "<:MH_Part4:688190533679579182>. Spoilers\n\n")
           .setFooter("Reacting will give you role, Unreacting will remove your role.")
           message.channel.send(questionEmbed).then(embed => {
-          embed.react(message.guild.emojis.cache.get('845777557654601758'))
-            .then(reaction => reaction.message.react('845777557184839711'))
-            .then(reaction => reaction.message.react('845777557232156734'))
-            .then(reaction => reaction.message.react('845777557449211934'))
-            .then(reaction => reaction.message.react('845777557444886548'))
-            .then(reaction => reaction.message.react('845777557487222834'))
-            .then(reaction => reaction.message.react('845777557827485716'))
-            .then(reaction => reaction.message.react('845777557709258782'))
-            .then(reaction => reaction.message.react('845777557231501383'))
-            .then(reaction => reaction.message.react('845777557579366472'))
-            .then(reaction => reaction.message.react('845777557361655851'))
-            .then(reaction => reaction.message.react('845777557562458162'))
-            .then(reaction => reaction.message.react('845777557717516288'))
-            .then(reaction => reaction.message.react('845777557592211497'))
-            .then(reaction => reaction.message.react('845777557826961468'))
-            .then(reaction => reaction.message.react('845777558032744488'))
+          embed.react(message.guild.emojis.cache.get('632282435614277643'))
+            .then(reaction => reaction.message.react('688190533679579182'))
             .catch(err => console.error);
         })
-      
+      }, 3000)
   
-   
+    }
+  else  if(args[0]=="2"){
+    console.log("logged");
+    
+    setTimeout(function () {
+      let questionEmbed = new Discord.MessageEmbed()
+        .setTitle("Pings Role")
+        .setColor("#FF0000")
+        .setDescription("These roles will be pinged occasionally when there is an update related to them in server.\n\n \*\*React to give yourself a role.\*\*\n\n" +
+          "<:MH_origami:689280975955427373>. Events\n\n" +
+          "🎮. Games\n\n" +
+          "🤖. Bot Update\n\n"+
+          "🏛️. Minecraft Updates\n\n")
+        .setFooter("Reacting will give you role, Unreacting will remove your role.")
+        message.channel.send(questionEmbed).then(embed => {
+        embed.react(message.guild.emojis.cache.get('689280975955427373'))
+          .then(reaction => reaction.message.react('🎮'))
+          .then(reaction => reaction.message.react('🤖'))
+          .then(reaction => reaction.message.react('🏛️'))
+          .catch(err => console.error);
+      })
+    }, 1000)
+
+  }
+  message.delete({timeout:1000});
   },
 }; 
