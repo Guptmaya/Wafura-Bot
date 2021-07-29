@@ -876,9 +876,9 @@ module.exports = {
                   }
                   console.log(answer);
 
-                  if (xCoordinateofCar === xCoordinateofParking && yCoordinateofCar === yCoordinateofParking) {
+                 /* if (xCoordinateofCar === xCoordinateofParking && yCoordinateofCar === yCoordinateofParking) {
                      getEmbed();
-                  }
+                  }*/
 
                   //interface
                   let embedd = new Discord.MessageEmbed()
