@@ -1026,7 +1026,7 @@ module.exports = {
 
          }
          else if (lowered === "gunman") {
-            var whichGun = getRndInteger(2, 2);
+            var whichGun = getRndInteger(1, 2);
             if (whichGun == 1) {
                const filter = m => m.author.id === message.author.id;
 
