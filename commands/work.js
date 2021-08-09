@@ -9,11 +9,10 @@ module.exports = {
    name: 'work',
    desciption: 'work command',
    guildOnly: true,
-   
    validChannels: '【🤖】bot-commands',
    usage: '<no args>',
    args: false,
-  async execute(bot, message, args) {
+   async execute(bot, message, args) {
       function getRndInteger(mini, maxx) {
          return Math.floor(Math.random() * (maxx - mini + 1)) + mini;
       }
@@ -49,7 +48,7 @@ module.exports = {
       }
 
       if (!args[0]) {
-         coinsGiven = getRndInteger(100, 250);
+         coinsGiven = getRndInteger(25, 50);
          client.editUserBalance(guildID, userID, { cash: coinsGiven }).then(report(coinsGiven, "none", "none"));
          message.channel.send(`You worked for <@!292953664492929025>'s Devs. Here some ${coinsGiven} Denver coins for you.`);
       }
@@ -171,7 +170,7 @@ module.exports = {
                   }
 
                   //check is user's input is same as sorted array
-                  message.channel.awaitMessages(filter, { max: 1, time: 15000 }).then(async collected =>  {
+                  message.channel.awaitMessages(filter, { max: 1, time: 15000 }).then(async collected => {
                      let check = collected.first().content;
                      if (check === hackString) {
                         message.channel.send("Hack Successful\n");
@@ -186,7 +185,7 @@ module.exports = {
                               .setImage(`attachment://arg.png`)
                               .setDescription(`Denver Coins : ${coinsGiven}`)
                            client.editUserBalance(guildID, userID, { cash: coinsGiven }).then(report(coinsGiven, "hacker", "asc-desc"));
-                           
+
                            let UserProfile = await UserWorkCount.findOne({ userID: message.author.id, guildID: message.guild.id });
                            if (!UserProfile) {
                               UserProfile = await new UserWorkCount({
@@ -211,25 +210,25 @@ module.exports = {
                      }
                      else {
                         let UserProfile = await UserWorkCount.findOne({ userID: message.author.id, guildID: message.guild.id });
-                           if (!UserProfile) {
-                              UserProfile = await new UserWorkCount({
-                                 _id: mongoose.Types.ObjectId(),
-                                 userID: message.author.id,
-                                 guildID: message.guild.id,
-                                 lastEdited: Date.now(),
-                                 failedHackCount: 0,
-                                 successfulHackCount: 0,
-                                 failedDriveCount: 0,
-                                 successfulDriveCount: 0,
-                                 failedGunCount: 0,
-                                 successfulGunCount: 0,
-                                 failedHeistsCount: 0,
-                                 successfulHeistsCount: 0
-                              });
-                              await UserProfile.save().catch(err => console.log(err));
-                           }
-                           await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { failedHackCount: UserProfile.failedHackCount + 1, lastEdited: Date.now() });
-                          
+                        if (!UserProfile) {
+                           UserProfile = await new UserWorkCount({
+                              _id: mongoose.Types.ObjectId(),
+                              userID: message.author.id,
+                              guildID: message.guild.id,
+                              lastEdited: Date.now(),
+                              failedHackCount: 0,
+                              successfulHackCount: 0,
+                              failedDriveCount: 0,
+                              successfulDriveCount: 0,
+                              failedGunCount: 0,
+                              successfulGunCount: 0,
+                              failedHeistsCount: 0,
+                              successfulHeistsCount: 0
+                           });
+                           await UserProfile.save().catch(err => console.log(err));
+                        }
+                        await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { failedHackCount: UserProfile.failedHackCount + 1, lastEdited: Date.now() });
+
                         let finalEmbed = new Discord.MessageEmbed()
                            .setTitle("Incorrect, Hack Failed.")
                            .attachFiles([`./images/ard.png`])
@@ -239,24 +238,24 @@ module.exports = {
                   }).catch(async err => {
                      console.log(err);
                      let UserProfile = await UserWorkCount.findOne({ userID: message.author.id, guildID: message.guild.id });
-                           if (!UserProfile) {
-                              UserProfile = await new UserWorkCount({
-                                 _id: mongoose.Types.ObjectId(),
-                                 userID: message.author.id,
-                                 guildID: message.guild.id,
-                                 lastEdited: Date.now(),
-                                 failedHackCount: 0,
-                                 successfulHackCount: 0,
-                                 failedDriveCount: 0,
-                                 successfulDriveCount: 0,
-                                 failedGunCount: 0,
-                                 successfulGunCount: 0,
-                                 failedHeistsCount: 0,
-                                 successfulHeistsCount: 0
-                              });
-                              await UserProfile.save().catch(err => console.log(err));
-                           }
-                           await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { failedHackCount: UserProfile.failedHackCount + 1, lastEdited: Date.now() });
+                     if (!UserProfile) {
+                        UserProfile = await new UserWorkCount({
+                           _id: mongoose.Types.ObjectId(),
+                           userID: message.author.id,
+                           guildID: message.guild.id,
+                           lastEdited: Date.now(),
+                           failedHackCount: 0,
+                           successfulHackCount: 0,
+                           failedDriveCount: 0,
+                           successfulDriveCount: 0,
+                           failedGunCount: 0,
+                           successfulGunCount: 0,
+                           failedHeistsCount: 0,
+                           successfulHeistsCount: 0
+                        });
+                        await UserProfile.save().catch(err => console.log(err));
+                     }
+                     await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { failedHackCount: UserProfile.failedHackCount + 1, lastEdited: Date.now() });
                      let finalEmbed = new Discord.MessageEmbed()
                         .setTitle("Time ran out, Hack Failed.")
                         .attachFiles([`./images/ard.png`])
@@ -452,7 +451,7 @@ module.exports = {
                         await UserProfile.save().catch(err => console.log(err));
                      }
                      await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { successfulHackCount: UserProfile.successfulHackCount + 1, lastEdited: Date.now() });
-               
+
                      return message.channel.send(`🕵️ System Hacked Successfully.\n Denver Coins : ${coinsGiven}`)
                   }
                   else {
@@ -475,7 +474,7 @@ module.exports = {
                         await UserProfile.save().catch(err => console.log(err));
                      }
                      await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { failedHackCount: UserProfile.failedHackCount + 1, lastEdited: Date.now() });
-               
+
                      return message.channel.send("🕵️ System Hack Failed.")
                   }
                }).catch(err => {
@@ -542,7 +541,7 @@ module.exports = {
                         await UserProfile.save().catch(err => console.log(err));
                      }
                      await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { successfulHackCount: UserProfile.successfulHackCount + 1, lastEdited: Date.now() });
-               
+
                      return message.channel.send(`🕵️ System Hacked Successfully.\nDenver Coins : ${coinsGiven}`)
                   }
                   else {
@@ -565,7 +564,7 @@ module.exports = {
                         await UserProfile.save().catch(err => console.log(err));
                      }
                      await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { failedHackCount: UserProfile.failedHackCount + 1, lastEdited: Date.now() });
-               
+
                      return message.channel.send("🕵️ System Hack Failed.")
                   }
                }).catch(err => {
@@ -700,7 +699,7 @@ module.exports = {
                         await UserProfile.save().catch(err => console.log(err));
                      }
                      await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { successfulDriveCount: UserProfile.successfulDriveCount + 1, lastEdited: Date.now() });
-               
+
                      return message.channel.send(embed);
                   }
                   else {
@@ -723,7 +722,7 @@ module.exports = {
                         await UserProfile.save().catch(err => console.log(err));
                      }
                      await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { failedDriveCount: UserProfile.failedDriveCount + 1, lastEdited: Date.now() });
-               
+
                      return message.channel.send("Signal Test Failed.");
                   }
                }).catch(err => {
@@ -876,9 +875,9 @@ module.exports = {
                   }
                   console.log(answer);
 
-                 /* if (xCoordinateofCar === xCoordinateofParking && yCoordinateofCar === yCoordinateofParking) {
-                     getEmbed();
-                  }*/
+                  /* if (xCoordinateofCar === xCoordinateofParking && yCoordinateofCar === yCoordinateofParking) {
+                      getEmbed();
+                   }*/
 
                   //interface
                   let embedd = new Discord.MessageEmbed()
@@ -942,7 +941,7 @@ module.exports = {
                                  await UserProfile.save().catch(err => console.log(err));
                               }
                               await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { failedDriveCount: UserProfile.failedDriveCount + 1, lastEdited: Date.now() });
-                        
+
                               let embed = new Discord.MessageEmbed()
                                  .setAuthor(uName, `${sIcon}`)
                                  .setColor('#fefeff')
@@ -1006,7 +1005,7 @@ module.exports = {
                            await UserProfile.save().catch(err => console.log(err));
                         }
                         await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { successfulDriveCount: UserProfile.successfulDriveCount + 1, lastEdited: Date.now() });
-                  
+
                         let guildID = '628512144454975489';
                         let coinsGiven = getRndInteger(500, 750);
                         let finalEmbed = new Discord.MessageEmbed()
@@ -1027,7 +1026,284 @@ module.exports = {
 
          }
          else if (lowered === "gunman") {
-            message.channel.send("Coming Soon.");
+            var whichGun = getRndInteger(2, 2);
+            if (whichGun == 1) {
+               const filter = m => m.author.id === message.author.id;
+
+
+               let messagee = `\*\*Shoot the spy!\*\*\nTo shoot the spy, type \*\*\`left\`\*\*,\*\*\`middle\`\*\* \*\*or\*\* \*\*\`right\`\*\*.\n`;
+               function getRndInteger(mini, maxx) {
+                  return Math.floor(Math.random() * (maxx - mini + 1)) + mini;
+               }
+               let position = getRndInteger(1, 3);
+               for (var i = 1; i <= 3; i++) {
+                  if (i === position) {
+                     messagee += '🕵️';
+                  }
+                  else {
+                     let humanArray = ['🤵‍♀️', '🤵‍♂️', '🧑‍🔧', '🧑‍🎓', '🧑‍⚕️'];
+                     messagee += humanArray[getRndInteger(0, humanArray.length - 1)];
+                  }
+               }
+               //messagee+=`\n\n\u2008\u2008\u2008\u2008\u2008\u2008\u2008<:piston:874315194015309894>`;
+               let answer = '';
+               if (position === 1) {
+                  answer = `left`;
+               } else if (position === 2) {
+                  answer = `middle`;
+               } else {
+                  answer = `right`;
+               }
+               message.channel.send(messagee).then(value => {
+                  message.channel.send(`\n<:piston:874315194015309894>`);
+               });
+               console.log(answer);
+               //take input
+               message.channel.awaitMessages(filter, { max: 1, time: 15000 }).then(async collected => {
+                  let checkAnswer = collected.first().content;
+                  checkAnswer = checkAnswer.toLowerCase();
+                  if (checkAnswer === answer) {
+                     coinsGiven = getRndInteger(250, 750);
+                     client.editUserBalance(guildID, userID, { cash: coinsGiven }).then(report(coinsGiven, "gunman", "shoot-spy"));
+                     let UserProfile = await UserWorkCount.findOne({ userID: message.author.id, guildID: message.guild.id });
+                     if (!UserProfile) {
+                        UserProfile = await new UserWorkCount({
+                           _id: mongoose.Types.ObjectId(),
+                           userID: message.author.id,
+                           guildID: message.guild.id,
+                           lastEdited: Date.now(),
+                           failedHackCount: 0,
+                           successfulHackCount: 0,
+                           failedDriveCount: 0,
+                           successfulDriveCount: 0,
+                           failedGunCount: 0,
+                           successfulGunCount: 0,
+                           failedHeistsCount: 0,
+                           successfulHeistsCount: 0
+                        });
+                        await UserProfile.save().catch(err => console.log(err));
+                     }
+                     await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { successfulGunCount: UserProfile.successfulGunCount + 1, lastEdited: Date.now() });
+
+                     return message.channel.send(`Spy was shot\n> Denver Coins :${coinsGiven}`);
+                  }
+                  else {
+                     let UserProfile = await UserWorkCount.findOne({ userID: message.author.id, guildID: message.guild.id });
+                     if (!UserProfile) {
+                        UserProfile = await new UserWorkCount({
+                           _id: mongoose.Types.ObjectId(),
+                           userID: message.author.id,
+                           guildID: message.guild.id,
+                           lastEdited: Date.now(),
+                           failedHackCount: 0,
+                           successfulHackCount: 0,
+                           failedDriveCount: 0,
+                           successfulDriveCount: 0,
+                           failedGunCount: 0,
+                           successfulGunCount: 0,
+                           failedHeistsCount: 0,
+                           successfulHeistsCount: 0
+                        });
+                        await UserProfile.save().catch(err => console.log(err));
+                     }
+                     await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { failedGunCount: UserProfile.failedGunCount + 1, lastEdited: Date.now() });
+
+                     return message.channel.send('You failed to shoot the spy.');
+                  }
+               }).catch(async err => {
+                  let UserProfile = await UserWorkCount.findOne({ userID: message.author.id, guildID: message.guild.id });
+                  if (!UserProfile) {
+                     UserProfile = await new UserWorkCount({
+                        _id: mongoose.Types.ObjectId(),
+                        userID: message.author.id,
+                        guildID: message.guild.id,
+                        lastEdited: Date.now(),
+                        failedHackCount: 0,
+                        successfulHackCount: 0,
+                        failedDriveCount: 0,
+                        successfulDriveCount: 0,
+                        failedGunCount: 0,
+                        successfulGunCount: 0,
+                        failedHeistsCount: 0,
+                        successfulHeistsCount: 0
+                     });
+                     await UserProfile.save().catch(err => console.log(err));
+                  }
+                  await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { failedGunCount: UserProfile.failedGunCount + 1, lastEdited: Date.now() });
+
+                  console.log(err);
+                  return message.channel.send('Time out. You failed.')
+               })
+
+            } else if (whichGun == 2) {
+
+               const filter = m => m.author.id === message.author.id;
+
+               let emojiArray = [];
+               let spy = '🕵️';
+               let humanArray = ['🤵‍♀️', '🧑‍🔬', '🧑‍💼', '🧑‍💻', '🧑‍⚕️', '🧑‍🏭', '🧑‍🏫', '🧑‍🎤', '🧑‍🎓', '🧑‍🍳', '🧑‍🌾', '🧑‍⚕️', '💂', '👷', '👮'];
+
+               let messagee = `Detective(🕵️) is hiding among other crowd.\nTell his location to sniper to shoot him down.\nYou have 5 seconds.\n`;
+               let secondMessage = '';
+               function getRndInteger(mini, maxx) {
+                  return Math.floor(Math.random() * (maxx - mini + 1)) + mini;
+               }
+               var position = getRndInteger(0, 29);
+               for (var i = 0; i < 30; i++) {
+                  if (i === position) {
+                     emojiArray[i] = spy;
+                  }
+                  else {
+                     emojiArray[i] = humanArray[getRndInteger(0, humanArray.length - 1)];
+                  }
+               }
+               for (var j = 0; j < 30; j++) {
+                  if (j === 0) {
+                     secondMessage += `🟦🇦\u2008🇧\u2008🇨\u2008🇩\u2008🇪\u2008🇫\u2008🇬\u2008🇭\u2008🇮\u2008🇯\n:one:`;
+                  }
+                  if (j == 10) {
+                     secondMessage += '\n:two:';
+                  } if (j == 20) {
+                     secondMessage += '\n:three:';
+                  }
+                  secondMessage += `${emojiArray[j]}\u2008`;
+
+               }
+               function getChar(number) {
+                  let alpha;
+                  if (number === '1') {
+                     alpha = 'a';
+                  } else if (number === '2') {
+                     alpha = 'b';
+                  } else if (number === '3') {
+                     alpha = 'c';
+                  } else if (number === '4') {
+                     alpha = 'd';
+                  } else if (number === '5') {
+                     alpha = 'e';
+                  } else if (number === '6') {
+                     alpha = 'f';
+                  } else if (number === '7') {
+                     alpha = 'g';
+                  } else if (number === '8') {
+                     alpha = 'h';
+                  } else if (number === '9') {
+                     alpha = 'i';
+                  } else if (number === '0') {
+                     alpha = 'j';
+                  }
+                  return alpha;
+               }
+               position = parseInt(position);
+               position++;
+               console.log(position);
+
+               let mod = position % 10;
+               mod = `${mod}`;
+               console.log(Number.isInteger(mod));
+               mod = getChar(mod);
+               if (position === 10) {
+                  position = 1;
+               } else if (position === 20) {
+                  position = 18;
+               } else if (position === 30) {
+                  position = 28;
+               }
+               let otherMod = Number.isInteger((position / 10)) ? '1' : Math.ceil(position / 10);
+               console.log(mod);
+               console.log(otherMod);
+               console.log(mod + otherMod)
+
+               let answer = mod + otherMod;
+
+               let embed = new Discord.MessageEmbed()
+                  .setAuthor(message.author.tag, message.author.displayAvatarURL())
+                  .setTitle('Find the detective')
+                  .setDescription(messagee + '\n' + secondMessage)
+                  .setFooter('Location Example : \'a3\' or \'e1\' or \'j2\'')
+               message.channel.send(embed);
+
+               //take input
+               message.channel.awaitMessages(filter, { max: 1, time: 10000 }).then(async collected => {
+                  let checkAnswer = collected.first().content;
+                  checkAnswer = checkAnswer.toLowerCase();
+                  if (checkAnswer === answer) {
+                     coinsGiven = getRndInteger(250, 750);
+                     client.editUserBalance(guildID, userID, { cash: coinsGiven }).then(report(coinsGiven, "gunman", "find-detective"));
+                     let successEmbed = new Discord.MessageEmbed()
+                        .setAuthor(message.author.tag, message.author.displayAvatarURL())
+                        .setDescription(`Correct coordinates lead to successful shot.\n> Denver Coins : ${coinsGiven}`)
+                     let UserProfile = await UserWorkCount.findOne({ userID: message.author.id, guildID: message.guild.id });
+                     if (!UserProfile) {
+                        UserProfile = await new UserWorkCount({
+                           _id: mongoose.Types.ObjectId(),
+                           userID: message.author.id,
+                           guildID: message.guild.id,
+                           lastEdited: Date.now(),
+                           failedHackCount: 0,
+                           successfulHackCount: 0,
+                           failedDriveCount: 0,
+                           successfulDriveCount: 0,
+                           failedGunCount: 0,
+                           successfulGunCount: 0,
+                           failedHeistsCount: 0,
+                           successfulHeistsCount: 0
+                        });
+                        await UserProfile.save().catch(err => console.log(err));
+                     }
+                     await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { successfulGunCount: UserProfile.successfulGunCount + 1, lastEdited: Date.now() });
+
+                     return message.channel.send(successEmbed);
+                  }
+                  else {
+                     let UserProfile = await UserWorkCount.findOne({ userID: message.author.id, guildID: message.guild.id });
+                     if (!UserProfile) {
+                        UserProfile = await new UserWorkCount({
+                           _id: mongoose.Types.ObjectId(),
+                           userID: message.author.id,
+                           guildID: message.guild.id,
+                           lastEdited: Date.now(),
+                           failedHackCount: 0,
+                           successfulHackCount: 0,
+                           failedDriveCount: 0,
+                           successfulDriveCount: 0,
+                           failedGunCount: 0,
+                           successfulGunCount: 0,
+                           failedHeistsCount: 0,
+                           successfulHeistsCount: 0
+                        });
+                        await UserProfile.save().catch(err => console.log(err));
+                     }
+                     await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { failedGunCount: UserProfile.failedGunCount + 1, lastEdited: Date.now() });
+
+                     return message.channel.send('> Incorrect coordinates => Detective got away.');
+                  }
+               }).catch(async err => {
+                  console.log(err);
+                  let UserProfile = await UserWorkCount.findOne({ userID: message.author.id, guildID: message.guild.id });
+                  if (!UserProfile) {
+                     UserProfile = await new UserWorkCount({
+                        _id: mongoose.Types.ObjectId(),
+                        userID: message.author.id,
+                        guildID: message.guild.id,
+                        lastEdited: Date.now(),
+                        failedHackCount: 0,
+                        successfulHackCount: 0,
+                        failedDriveCount: 0,
+                        successfulDriveCount: 0,
+                        failedGunCount: 0,
+                        successfulGunCount: 0,
+                        failedHeistsCount: 0,
+                        successfulHeistsCount: 0
+                     });
+                     await UserProfile.save().catch(err => console.log(err));
+                  }
+                  await UserWorkCount.findOneAndUpdate({ userID: message.author.id, guildID: message.guild.id }, { failedGunCount: UserProfile.failedGunCount + 1, lastEdited: Date.now() });
+
+                  return message.channel.send('> Time out => Detective got away.');
+               })
+
+            }
          }
          else if (lowered === "list") {
             let embed = new Discord.MessageEmbed()
